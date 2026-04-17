@@ -1,0 +1,22 @@
+{
+  "name": "cloud-notes-platform",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n frontend,backend,realtime -c cyan,green,magenta \"pnpm --filter @cloud-notes/frontend dev\" \"pnpm --filter @cloud-notes/backend dev\" \"pnpm --filter @cloud-notes/realtime dev\"",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "db:create": "pnpm --filter @cloud-notes/backend db:create",
+    "db:migrate": "pnpm --filter @cloud-notes/backend db:migrate",
+    "db:schema": "psql \"$DATABASE_URL\" -f infra/db/schema.sql"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
