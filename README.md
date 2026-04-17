@@ -1,4 +1,6 @@
-# Cloud Notes Platform Monorepo
+# CloudNote
+
+## Cloud Notes Platform Monorepo
 
 This workspace scaffolds a cloud-first notes platform based on the SRS in `docs/SRS.md`.
 
