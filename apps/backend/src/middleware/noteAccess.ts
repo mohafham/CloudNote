@@ -1,6 +1,7 @@
 import { pool } from "../db/pool.js";
 
 export type NoteAccessLevel = "owner" | "edit" | "view" | null;
+export type GrantedNoteAccessLevel = Exclude<NoteAccessLevel, null>;
 
 export async function resolveNoteAccess(noteId: string, userId: string): Promise<NoteAccessLevel> {
   const ownerResult = await pool.query<{ owner_id: string }>(
@@ -28,6 +29,18 @@ export async function resolveNoteAccess(noteId: string, userId: string): Promise
   return collabResult.rows[0].access_level;
 }
 
+export function hasRequiredAccess(
+  access: NoteAccessLevel,
+  required: "view"
+): access is GrantedNoteAccessLevel;
+export function hasRequiredAccess(
+  access: NoteAccessLevel,
+  required: "edit"
+): access is "edit" | "owner";
+export function hasRequiredAccess(
+  access: NoteAccessLevel,
+  required: "owner"
+): access is "owner";
 export function hasRequiredAccess(
   access: NoteAccessLevel,
   required: "view" | "edit" | "owner"

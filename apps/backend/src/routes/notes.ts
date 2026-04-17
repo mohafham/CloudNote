@@ -923,16 +923,18 @@ notesRouter.post("/:noteId/realtime-token", async (req, res) => {
     return;
   }
 
+  const accessLevel: "view" | "edit" | "owner" = access;
+
   const token = signRealtimeToken({
     userId,
     email: req.user!.email,
     noteId,
-    accessLevel: access
+    accessLevel
   });
 
   res.status(200).json({
     noteId,
-    accessLevel: access,
+    accessLevel,
     realtimeToken: token
   });
 });
