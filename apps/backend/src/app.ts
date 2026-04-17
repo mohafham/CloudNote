@@ -1,6 +1,6 @@
 import cors from "cors";
 import express, { type Request, type Response } from "express";
-import helmet from "helmet";
+import * as helmet from "helmet";
 import morgan from "morgan";
 import { env } from "./config/env.js";
 import { authRouter } from "./routes/auth.js";
@@ -11,7 +11,7 @@ import { sharedRouter } from "./routes/shared.js";
 
 export const app = express();
 
-app.use(helmet());
+app.use(helmet.default());
 app.use(
   cors({
     origin: env.CLIENT_ORIGIN,
