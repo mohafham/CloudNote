@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: cloudnote-backend
+    runtime: node
+    rootDir: .
+    buildCommand: corepack enable && pnpm install --frozen-lockfile --prod=false && pnpm --filter @cloud-notes/backend build
+    startCommand: pnpm --filter @cloud-notes/backend start
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.0
+      - key: NODE_ENV
+        value: production
+      - key: API_PORT
+        value: 10000
+      - key: S3_FORCE_PATH_STYLE
+        value: "true"
